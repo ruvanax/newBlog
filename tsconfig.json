@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+    	"module": "commonjs",
+        "target": "es6",
+        "removeComments": false,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "outDir": "server",
+        "sourceMap": true,
+        "moduleResolution": "node"
+    },
+    "include": ["typescript-node/"],
+    "exclude": ["node_modules"]
+}
