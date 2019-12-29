@@ -25,6 +25,14 @@ const actions = {
                 resolve(response.data);
             })
         });
+    },
+    handleOpenTheme(context, id){
+        return new Promise((resolve) =>{
+            axios.get("./rest/posts/openTheme", id).then(response =>{
+                // console.log(response.data);
+                resolve(response.data);
+            })
+        });
     }
 };
 

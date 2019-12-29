@@ -1,55 +1,44 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-const express = require('express');
-const router = express.Router();
-const Post = require("../models/post");
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const storage = new Post();
-    const posts = yield storage.getAll();
-    res.json(posts);
-}));
-router.route('/post')
-    .post((req, res, next) => {
-    try {
-        const body = req.body;
-        const storage = new Post();
-        if (req.session && req.session.user) {
-            const postObj = {
-                theme: body.theme,
-                text: body.text,
-                createdBy: req.session.user._id
-            };
-            storage.create(postObj).then((newPost) => {
-                const resObj = {
-                    message: "Успешно!"
+Object.defineProperty(exports, "__esModule", { value: true });
+const postController_1 = require("../controllers/postController");
+const PostRoute = {
+    createRouter(router) {
+        return router()
+            .post('/post', (req, res, next) => {
+            if (req.session && req.session.user) {
+                const postObj = {
+                    theme: req.body.theme,
+                    text: req.body.text,
+                    createdBy: req.session.user._id
                 };
-                res.status(200).send(resObj);
-            });
-        }
-    }
-    catch (error) {
-        next(error);
-    }
-});
-router.route('/post')
-    .get((req, res, next) => {
-    try {
-        const storage = new Post();
-        storage.getAll().then((posts) => {
-            res.status(200).send(posts);
+                postController_1.default.createNewPost(postObj, () => {
+                    res.status(200).send({ message: "Успешно" });
+                }, (msg, code) => {
+                    res.status(code).send({ message: msg });
+                });
+            }
+            else {
+                res.status(403);
+            }
+        })
+            .get('/post', (req, res, next) => {
+            if (req.session && req.session.user) {
+                postController_1.default.getAllThemes((themes) => {
+                    res.status(200).send({ message: "Успешно", themes });
+                }, (msg, code) => {
+                    res.status(code).send({ message: msg });
+                });
+            }
+            else {
+                res.status(403);
+            }
         });
     }
-    catch (error) {
-        next(error);
-    }
-});
-module.exports = router;
+};
+exports.default = PostRoute;
+// router.get('/', async (req:any, res:any) =>{
+//     const storage: Post = new Post();
+//     const posts = await storage.getAll();
+//     res.json(posts);
+// });
 //# sourceMappingURL=posts.js.map

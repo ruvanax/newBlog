@@ -2,9 +2,9 @@
   <div class="userMenu">
     <form id="userMenuForm" @submit.prevent="submitForm" autocomplete="off">
       <div class="userMenuFormBlock">
-        <label class="userMenuFormLabel" for="userName">name: </label>
-        <input type="text" name="userName" id="userName" v-model="registerForm.name">
-        <p v-if="formErrors.name">{{formErrors.name}}</p>
+        <label class="userMenuFormLabel" for="userName">username: </label>
+        <input type="text" name="userName" id="userName" v-model="registerForm.username">
+        <p v-if="formErrors.name">{{formErrors.username}}</p>
       </div>
       <div class="userMenuFormBlock">
         <label class="userMenuFormLabel" for="userName">password: </label>
@@ -36,7 +36,7 @@ export default {
   data(){
     return{
         registerForm: {
-          name: "",
+          username: "",
           password: "",
           confirmation: ""
         },
@@ -72,7 +72,7 @@ export default {
           if(this.errors.hasOwnProperty(key)){
             delete this.errors[key];
           }
-          if(key === "name"){
+          if(key === "username"){
             if(form[key] === ""){
               this.$set(this.errors, key, ERROR_TYPES.REQUIRED);
               continue;

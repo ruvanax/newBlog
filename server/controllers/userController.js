@@ -4,8 +4,10 @@ const user_1 = require("../models/user");
 const { hashPassword, comparePassword } = require('../models/passwordHashing');
 const createNewUser = function (userData, onCreate, onError) {
     const storage = new user_1.default();
+    // if(userData.username !== undefined && userData.password !== undefined){
     // @ts-ignore
-    storage.getByUsername(userData.username).then((user) => {
+    storage.getByUsername(userData.name).then((user) => {
+        console.log("user", user);
         if (user) {
             onError("Данный пользователь уже зарегитрирован!", 400);
         }
@@ -18,7 +20,12 @@ const createNewUser = function (userData, onCreate, onError) {
                 onCreate(newUser);
             });
         });
+    }).catch((error) => {
+        onError(error, 500);
     });
+    // }else{
+    //     onError("", 400);
+    // }
 };
 const login = function (userData, onCreate, onError) {
     const storage = new user_1.default();
@@ -35,6 +42,8 @@ const login = function (userData, onCreate, onError) {
             else {
                 onCreate(user);
             }
+        }).catch((error) => {
+            onError(error, 500);
         });
     });
 };

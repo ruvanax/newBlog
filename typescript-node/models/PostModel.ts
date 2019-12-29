@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Storage = require('./storage');
+const Storage = require('./Storage');
 const Schema = mongoose.Schema;
 
 
@@ -24,4 +24,4 @@ class Post extends Storage{
     }
 }
 
-export = Post;
+export default Post;
