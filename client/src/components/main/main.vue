@@ -2,14 +2,12 @@
   <div class="mainClass">
     <my-auth/>
     <my-p-main/>
-<!--    <my-p-img/>-->
   </div>
 </template>
 
 <script>
 import auth from "./auth/auth.vue"
 import pMain from "./posts/pMain.vue";
-import pImg from "./pImg.vue";
 
 export default {
   name: 'Main',
@@ -21,8 +19,7 @@ export default {
   },
   components:{
    "my-auth": auth,
-    "my-p-main": pMain,
-    "my-p-img": pImg
+    "my-p-main": pMain
   },
   computed:{
 

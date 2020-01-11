@@ -40,9 +40,9 @@ const PostRoute: IApplicationRoute = {
                     res.status(403);
                 }
             })
-            .get('/openTheme', (req:Request, res:Response, next: NextFunction) =>{
+            .get('/openTheme/:id', (req:Request, res:Response, next: NextFunction) =>{
                 if(req.session && req.session.user){
-                    PostController.getSingleTheme(req.body.id, (theme: object)=>{
+                    PostController.getSingleTheme(req.params.id, (theme: object)=>{
                         res.status(200).send({message: "Успешно", theme});
                     },(msg:string, code:number) => {
                         res.status(code).send({message: msg});
@@ -55,13 +55,6 @@ const PostRoute: IApplicationRoute = {
 
 
 export default PostRoute;
-
-
-// router.get('/', async (req:any, res:any) =>{
-//     const storage: Post = new Post();
-//     const posts = await storage.getAll();
-//     res.json(posts);
-// });
 
 
 

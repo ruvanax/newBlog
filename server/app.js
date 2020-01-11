@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const applicationRoute_1 = require("./routes/applicationRoute");
-const applicationDataProvider_1 = require("./providers/applicationDataProvider");
+const ApplicationRoute_1 = require("./routes/ApplicationRoute");
+const ApplicationDataProvider_1 = require("./providers/ApplicationDataProvider");
 class App {
     constructor(config) {
         this.config = config;
@@ -33,9 +33,9 @@ class App {
             res.contentType('application/json');
             next();
         });
-        let appRouter = new applicationRoute_1.default();
+        let appRouter = new ApplicationRoute_1.default();
         appRouter.mount(this.expApp);
-        const applicationDataProvider = new applicationDataProvider_1.default("test");
+        const applicationDataProvider = new ApplicationDataProvider_1.default("test");
         applicationDataProvider.run().then(() => {
             this.expApp.listen(this.config.listenPort);
             this.expApp.on('error', this.onError);

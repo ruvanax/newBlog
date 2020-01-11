@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <b-button @click="handleCreateTheme">{{showThemeForm ? 'Close Form' : 'Create theme'}}</b-button>
+    <b-modal id="createThemeDialog" ref="createThemeDialog" title="Create New Post">
         <div class="centralBlockThemeForm">
-            <b-form @submit.prevent="onSubmit" @reset="onReset" v-if="showThemeForm">
+            <b-form>
                 <b-form-group
                         id="input-group-1"
                         label="Theme title:"
@@ -25,20 +24,20 @@
                             size="lg"
                     />
                 </b-form-group>
-                <b-button type="submit" variant="primary">Submit</b-button>
-                <b-button type="reset" variant="danger">Reset</b-button>
             </b-form>
         </div>
-    </div>
+        <template v-slot:modal-footer>
+            <b-button type="reset" variant="danger" @click="onReset">Reset</b-button>
+            <b-button type="submit" variant="primary" @click="onSubmit">Submit</b-button>
+        </template>
+    </b-modal>
 </template>
 
 <script>
     export default {
-        name: "pForm",
-        props: [],
+        name: "createThemeDialog",
         data(){
             return{
-                showThemeForm: false,
                 themeForm:{
                     theme: "",
                     text: ""
@@ -46,24 +45,27 @@
             }
         },
         methods:{
-            handleCreateTheme(){
-                this.showThemeForm = !this.showThemeForm;
-            },
             onSubmit(){
-                this.$store.dispatch("handleCreatePost", this.themeForm).then(res =>{
-                    this.showThemeForm = false;
+                this.validateForm(valid =>{
+                    this.$store.dispatch("handleCreatePost", this.themeForm).then(res =>{
+                        this.$refs["createThemeDialog"].hide();
+                        this.$store.dispatch("handleSetPostsToTheList");
+                    });
                 });
             },
             onReset(){
+                this.$set(this.themeForm, "theme", "");
+                this.$set(this.themeForm, "text", "");
+            },
+            validateForm(callback){
 
             }
         },
+        components:{
+
+        },
         computed:{
-            userName(){
-                if(this.$store.getters.user && this.$store.getters.user.username){
-                    return this.$store.getters.user.username;
-                }
-            }
+
         },
         mounted(){
 
@@ -71,6 +73,6 @@
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

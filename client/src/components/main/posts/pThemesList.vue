@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div v-for="(item, index) in themesArr">
-            <span @click="handleOpenTheme(item._id)">{{item.theme}}</span>
+    <div style="height: 280px; overflow: auto">
+        <div v-for="(item, index) in themesList" style="margin: 5px 0;">
+            <span @click="handleOpenTheme(item._id)" style="text-decoration: underline; cursor: pointer;">{{item.theme}}</span>
         </div>
     </div>
 </template>
@@ -29,20 +29,15 @@
                     return this.$store.getters.user.username;
                 }
             },
-            themes(){
-
-            },
-
+            themesList(){
+                return this.$store.getters.themesList;
+            }
         },
         components:{
 
         },
         mounted(){
-            this.$store.dispatch("handleGetPosts").then(data =>{
-                if(data.themes && data.themes.length){
-                    this.themesArr = [...data.themes];
-                }
-            });
+            this.$store.dispatch("handleSetPostsToTheList");
         }
     }
 </script>

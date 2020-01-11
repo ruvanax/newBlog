@@ -10,12 +10,14 @@
                 </b-col>
             </b-row>
         </b-container>
+        <my-dialog/>
     </div>
 </template>
 
 <script>
-    import pForm from "./pForm.vue";
+    import pForm from "./pUserInterface.vue";
     import pThemesList from "./pThemesList.vue";
+    import dialog from "./pCreateThemeDialog.vue";
 
     export default {
         name: "pMain",
@@ -37,7 +39,8 @@
         },
         components:{
             "my-p-form": pForm,
-            "my-p-themes-list": pThemesList
+            "my-p-themes-list": pThemesList,
+            "my-dialog": dialog
         },
         mounted(){
 
@@ -49,6 +52,8 @@
     div.centralBlock{
         /*max-width: 800px;*/
         margin: 40px 10px;
+        border: 1px solid black;
+        max-height: 400px;
     }
     div.centralBlock div.centralBlockThemeForm{
         margin: 20px 0;

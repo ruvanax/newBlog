@@ -6,7 +6,8 @@ Vue.use(Vuex);
 
 
 const state = {
-    user: {}
+    user: {},
+    themesList: []
 };
 
 const actions = {
@@ -26,9 +27,15 @@ const actions = {
             })
         });
     },
+    handleSetPostsToTheList(context){
+        context.dispatch("handleGetPosts").then(themesList =>{
+            console.log("themesList", themesList);
+            context.commit("SET_THEMES_TO_THE_LIST", themesList.themes);
+        });
+    },
     handleOpenTheme(context, id){
         return new Promise((resolve) =>{
-            axios.get("./rest/posts/openTheme", id).then(response =>{
+            axios.get(`./rest/posts/openTheme/${id}`).then(response =>{
                 // console.log(response.data);
                 resolve(response.data);
             })
@@ -37,10 +44,16 @@ const actions = {
 };
 
 const getters = {
-    
+    themesList(state){
+        return state.themesList;
+    }
 };
 const mutations = {
-
+    SET_THEMES_TO_THE_LIST(state, themesList){
+        if(themesList && themesList.length){
+            state.themesList = [...themesList];
+        }
+    }
 };
 
 export default {
