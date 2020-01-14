@@ -1,16 +1,28 @@
 <template>
-    <div class="centralBlock" v-if="userName">
-        <b-container fluid>
-            <b-row class="justify-content-md-center">
-                <b-col cols="8">
-                    <my-p-form/>
-                </b-col>
-                <b-col cols="4">
-                    <my-p-themes-list/>
-                </b-col>
-            </b-row>
-        </b-container>
-        <my-dialog/>
+    <div>
+        <div class="centralBlock" v-if="userName">
+            <b-container fluid>
+                <b-row class="justify-content-md-center">
+                    <b-col cols="8">
+                        <my-p-form/>
+                    </b-col>
+                    <b-col cols="4">
+                        <my-p-themes-list/>
+                    </b-col>
+                </b-row>
+
+            </b-container>
+            <my-dialog/>
+        </div>
+        <div class="viewingThemeBlock">
+            <b-container fluid>
+                <b-row class="justify-content-md-center">
+                    <b-col cols="12">
+                        <my-viewing-tab/>
+                    </b-col>
+                </b-row>
+            </b-container>
+        </div>
     </div>
 </template>
 
@@ -18,6 +30,7 @@
     import pForm from "./pUserInterface.vue";
     import pThemesList from "./pThemesList.vue";
     import dialog from "./pCreateThemeDialog.vue";
+    import viewingTab from "./viewingTab.vue";
 
     export default {
         name: "pMain",
@@ -40,7 +53,8 @@
         components:{
             "my-p-form": pForm,
             "my-p-themes-list": pThemesList,
-            "my-dialog": dialog
+            "my-dialog": dialog,
+            "my-viewing-tab": viewingTab
         },
         mounted(){
 
@@ -57,5 +71,9 @@
     }
     div.centralBlock div.centralBlockThemeForm{
         margin: 20px 0;
+    }
+    div.viewingThemeBlock{
+        /*border: 1px solid grey;*/
+        /*max-height: 300px;*/
     }
 </style>

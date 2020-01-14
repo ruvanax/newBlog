@@ -1,5 +1,21 @@
 <template>
-
+    <div v-if="currentTheme">
+        <div>
+            <b-card :title="currentTheme.theme" style="max-width: 40rem; text-align: center" header-tag="header" footer-tag="footer">
+                <template v-slot:header>
+                    <b-button-close @click="handleCloseTheme"/>
+                </template>
+                <b-card-text style="text-align: left">
+                    {{currentTheme.text}}
+                </b-card-text>
+                <template v-slot:footer>
+                    <div style="text-align: right">
+                        <b-link @click="handleEditTheme">Редактировать</b-link>
+                    </div>
+                </template>
+            </b-card>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -12,10 +28,17 @@
             }
         },
         methods:{
+            handleCloseTheme(){
+                this.$store.dispatch("handleClearCurrentTheme");
+            },
+            handleEditTheme(){
 
+            }
         },
         computed:{
-
+            currentTheme(){
+                return this.$store.getters.currentTheme;
+            }
         },
         components:{
 

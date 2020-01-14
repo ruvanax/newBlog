@@ -18,8 +18,8 @@
         },
         methods:{
             handleOpenTheme(id){
-                this.$store.dispatch("handleOpenTheme", id).then(res =>{
-
+                this.$store.dispatch("handleOpenTheme", id).then(data =>{
+                    this.$store.dispatch("handleSetCurrentTheme", data.theme);
                 });
             }
         },

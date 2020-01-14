@@ -7,7 +7,8 @@ Vue.use(Vuex);
 
 const state = {
     user: {},
-    themesList: []
+    themesList: [],
+    currentTheme: null
 };
 
 const actions = {
@@ -29,7 +30,6 @@ const actions = {
     },
     handleSetPostsToTheList(context){
         context.dispatch("handleGetPosts").then(themesList =>{
-            console.log("themesList", themesList);
             context.commit("SET_THEMES_TO_THE_LIST", themesList.themes);
         });
     },
@@ -40,12 +40,21 @@ const actions = {
                 resolve(response.data);
             })
         });
+    },
+    handleSetCurrentTheme(context, currentTheme){
+        context.commit("SET_CURRENT_THEME", currentTheme);
+    },
+    handleClearCurrentTheme(context){
+        context.commit("SET_CURRENT_THEME", null);
     }
 };
 
 const getters = {
     themesList(state){
         return state.themesList;
+    },
+    currentTheme(state){
+        return state.currentTheme;
     }
 };
 const mutations = {
@@ -53,6 +62,9 @@ const mutations = {
         if(themesList && themesList.length){
             state.themesList = [...themesList];
         }
+    },
+    SET_CURRENT_THEME(state, currentTheme){
+        state.currentTheme = currentTheme;
     }
 };
 
