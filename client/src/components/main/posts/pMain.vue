@@ -3,10 +3,13 @@
         <div class="centralBlock" v-if="userName">
             <b-container fluid>
                 <b-row class="justify-content-md-center">
-                    <b-col cols="8">
+                    <b-col cols="12" sm="12" md="12" lg="4">
                         <my-p-form/>
                     </b-col>
-                    <b-col cols="4">
+                    <b-col cols="12" sm="12" md="12" lg="5">
+                        <my-viewing-tab/>
+                    </b-col>
+                    <b-col cols="12" sm="12" md="12" lg="3">
                         <my-p-themes-list/>
                     </b-col>
                 </b-row>
@@ -14,15 +17,13 @@
             </b-container>
             <my-dialog/>
         </div>
-        <div class="viewingThemeBlock">
-            <b-container fluid>
-                <b-row class="justify-content-md-center">
-                    <b-col cols="12">
-                        <my-viewing-tab/>
-                    </b-col>
-                </b-row>
-            </b-container>
-        </div>
+<!--        <div class="viewingThemeBlock">-->
+<!--            <b-container fluid>-->
+<!--                <b-row class="justify-content-md-center">-->
+<!--                    -->
+<!--                </b-row>-->
+<!--            </b-container>-->
+<!--        </div>-->
     </div>
 </template>
 
@@ -65,9 +66,9 @@
 <style>
     div.centralBlock{
         /*max-width: 800px;*/
-        margin: 40px 10px;
+        margin: 40px 1%;
         border: 1px solid black;
-        max-height: 400px;
+        /*max-height: 400px;*/
     }
     div.centralBlock div.centralBlockThemeForm{
         margin: 20px 0;

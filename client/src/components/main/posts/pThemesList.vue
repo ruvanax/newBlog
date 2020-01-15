@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 280px; overflow: auto">
+    <div style="max-height: 380px; overflow: auto">
         <div v-for="(item, index) in themesList" style="margin: 5px 0;">
             <span @click="handleOpenTheme(item._id)" style="text-decoration: underline; cursor: pointer;">{{item.theme}}</span>
         </div>
