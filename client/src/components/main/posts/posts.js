@@ -8,7 +8,8 @@ Vue.use(Vuex);
 const state = {
     user: {},
     themesList: [],
-    currentTheme: null
+    currentTheme: null,
+    userTrigger: false
 };
 
 const actions = {
@@ -28,15 +29,21 @@ const actions = {
             })
         });
     },
-    handleSetPostsToTheList(context){
-        context.dispatch("handleGetPosts").then(themesList =>{
-            context.commit("SET_THEMES_TO_THE_LIST", themesList.themes);
-        });
+    handleSetPostsToTheList(context, themes){
+        context.commit("SET_THEMES_TO_THE_LIST", themes);
     },
     handleOpenTheme(context, id){
         return new Promise((resolve) =>{
             axios.get(`./rest/posts/openTheme/${id}`).then(response =>{
                 // console.log(response.data);
+                resolve(response.data);
+            })
+        });
+    },
+    getPostsCreatedBySingleUser(context, id){
+        return new Promise((resolve) =>{
+            axios.get(`./rest/posts/getSingleUserPosts/${id}`).then(response =>{
+                context.commit("SET_USER_TRIGGER", true);
                 resolve(response.data);
             })
         });
@@ -55,16 +62,24 @@ const getters = {
     },
     currentTheme(state){
         return state.currentTheme;
+    },
+    userTrigger(state){
+        return state.userTrigger;
     }
 };
 const mutations = {
     SET_THEMES_TO_THE_LIST(state, themesList){
         if(themesList && themesList.length){
             state.themesList = [...themesList];
+        }else{
+            state.themesList = [];
         }
     },
     SET_CURRENT_THEME(state, currentTheme){
         state.currentTheme = currentTheme;
+    },
+    SET_USER_TRIGGER(state, bool){
+        state.userTrigger = bool;
     }
 };
 

@@ -49,6 +49,15 @@ const PostRoute: IApplicationRoute = {
                     });
                 }
             })
+            .get('/getSingleUserPosts/:id', (req:Request, res:Response, next: NextFunction) =>{
+                if(req.session && req.session.user){
+                    PostController.getSingleUserPosts(req.params.id, (themes: object) =>{
+                        res.status(200).send({message: "Успешно", themes});
+                    },(msg:string, code:number) => {
+                        res.status(code).send({message: msg});
+                    });
+                }
+            })
     }
 };
 

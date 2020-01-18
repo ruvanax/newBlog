@@ -22,6 +22,9 @@ class Post extends Storage{
     constructor() {
         super(PostModel);
     }
+    public getPostsCreatedBySingleUser(id: string): object{
+        return this.model.find({createdBy: id});
+    }
 }
 
 export default Post;

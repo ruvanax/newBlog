@@ -47,10 +47,20 @@
         methods:{
             onSubmit(){
                 this.validateForm(valid =>{
-                    this.$store.dispatch("handleCreatePost", this.themeForm).then(res =>{
-                        this.$refs["createThemeDialog"].hide();
-                        this.$store.dispatch("handleSetPostsToTheList");
-                    });
+                    if(valid){
+                        this.$store.dispatch("handleCreatePost", this.themeForm).then(res =>{
+                            this.$refs["createThemeDialog"].hide();
+                            if(this.userTrigger){
+                                this.$store.dispatch("getPostsCreatedBySingleUser", this.userId).then(data => {
+                                    this.$store.dispatch("handleSetPostsToTheList", data.themes)
+                                });
+                            }else{
+                                this.$store.dispatch("handleGetPosts").then(data =>{
+                                    this.$store.dispatch("handleSetPostsToTheList", data.themes);
+                                });
+                            }
+                        });
+                    }
                 });
             },
             onReset(){
@@ -58,14 +68,21 @@
                 this.$set(this.themeForm, "text", "");
             },
             validateForm(callback){
-
+                callback(true);
             }
         },
         components:{
 
         },
         computed:{
-
+            userTrigger(){
+                return this.$store.getters.userTrigger;
+            },
+            userId(){
+                if(this.$store.getters.user && this.$store.getters.user._id){
+                    return this.$store.getters.user._id;
+                }
+            }
         },
         mounted(){
 

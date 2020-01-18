@@ -1,5 +1,5 @@
 <template>
-    <div style="max-height: 380px; overflow: auto">
+    <div style="max-height: 380px; overflow: auto; margin: 0 10%">
         <div v-for="(item, index) in themesList" style="margin: 5px 0;">
             <span @click="handleOpenTheme(item._id)" style="text-decoration: underline; cursor: pointer;">{{item.theme}}</span>
         </div>
@@ -24,11 +24,6 @@
             }
         },
         computed:{
-            userName(){
-                if(this.$store.getters.user && this.$store.getters.user.username){
-                    return this.$store.getters.user.username;
-                }
-            },
             themesList(){
                 return this.$store.getters.themesList;
             }
@@ -37,7 +32,9 @@
 
         },
         mounted(){
-            this.$store.dispatch("handleSetPostsToTheList");
+            this.$store.dispatch("handleGetPosts").then(data =>{
+                this.$store.dispatch("handleSetPostsToTheList", data.themes);
+            });
         }
     }
 </script>

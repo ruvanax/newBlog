@@ -1,7 +1,7 @@
 <template>
-    <div v-if="currentTheme">
+    <div v-if="currentTheme" style="margin: 0 10%">
         <div>
-            <b-card :title="currentTheme.theme" style="max-width: 40rem; text-align: center" header-tag="header" footer-tag="footer">
+            <b-card :title="currentTheme.theme" style="max-width: 40rem; min-width: 15rem; text-align: center" header-tag="header" footer-tag="footer">
                 <template v-slot:header>
                     <b-button-close @click="handleCloseTheme"/>
                 </template>

@@ -34,9 +34,20 @@ const getSingleTheme = function (id: string, onCreate: any, onError: (msg: strin
     });
 };
 
+const getSingleUserPosts = function (id: string, onCreate: any, onError: (msg: string, code: number) => void): void {
+    const storage: Post = new Post();
+    // @ts-ignore
+    storage.getPostsCreatedBySingleUser(id).then((themes: object) =>{
+        onCreate(themes)
+    }).catch((error: any) =>{
+        onError(error, 500);
+    })
+};
+
 
 export default {
     createNewPost,
     getAllThemes,
-    getSingleTheme
+    getSingleTheme,
+    getSingleUserPosts
 }
